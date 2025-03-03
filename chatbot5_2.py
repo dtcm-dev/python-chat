@@ -18,7 +18,7 @@ if "OPENAI_API_KEY" not in os.environ:
     sys.exit(1)
 
 # Load and chunk contents of the PDF
-loader = PyPDFLoader("microsoft_2024_annual_report.pdf")
+loader = PyPDFLoader("docs/report.pdf")
 pages = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)

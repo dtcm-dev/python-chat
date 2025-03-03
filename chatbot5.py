@@ -18,7 +18,7 @@ if "OPENAI_API_KEY" not in os.environ:
     sys.exit(1)
 
 # Load and chunk contents of the blog
-loader = PyPDFLoader("microsoft_2024_annual_report.pdf")
+loader = PyPDFLoader("docs/report.pdf")
 pages = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
@@ -27,6 +27,7 @@ all_splits = text_splitter.split_documents(pages)
 # Create vector store and add documents
 embeddings = OpenAIEmbeddings()
 vector_store = InMemoryVectorStore(embeddings)
+vector_store.add_documents(all_splits)
 
 # Create retriever
 retriever = vector_store.as_retriever()
