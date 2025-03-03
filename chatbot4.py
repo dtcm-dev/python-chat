@@ -6,6 +6,7 @@ from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, AIMessage, SystemMessage, FunctionMessage
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from dotenv import load_dotenv, find_dotenv
+from Database import Database
 
 # Define function to get current time
 def get_current_time():
@@ -14,11 +15,19 @@ def get_current_time():
 
     return f"The current time is {current_time.strftime('%H:%M:%S')} in your local timezone."
 
+def get_cheap_rooms():
+    """Get the cheapest rooms available from the current hotel"""
+    
+
 # Function definition for the model
 FUNCTION_DEFINITIONS = [
     {
         "name": "get_current_time",
         "description": "Get the current time, optionally in a specific timezone"
+    },
+    {
+        "name": "get_cheap_rooms",
+        "description": "Get the cheapest rooms available from the current hotel"
     }
 ]
 
