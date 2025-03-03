@@ -27,7 +27,7 @@ all_splits = text_splitter.split_documents(pages)
 # Create vector store and add documents
 embeddings = OpenAIEmbeddings()
 vector_store = InMemoryVectorStore(embeddings)
-vector_store.add_documents(all_splits)  # This line was missing in the original code
+vector_store.add_documents(all_splits)
 
 # Create retriever
 retriever = vector_store.as_retriever()
@@ -67,8 +67,7 @@ rag_chain = (
 question = input("Enter question here: ")
 result = rag_chain.invoke(question)
 
-print("\n=== ANSWER ===")
-print(result["answer"])
+
 print("\n=== CONTEXT USED ===")
 print(result["context"])
 print("\n=== SOURCE DOCUMENTS ===")
@@ -76,3 +75,5 @@ for i, doc in enumerate(result["source_documents"]):
     print(f"\nDocument {i+1}:")
     print(f"Page: {doc.metadata.get('page', 'N/A')}")
     print(f"Source: {doc.metadata.get('source', 'N/A')}")
+print("\n=== ANSWER ===")
+print(result["answer"])
