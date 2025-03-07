@@ -10,16 +10,14 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate, ChatPromptTemplate, MessagesPlaceholder
 from langchain.schema import HumanMessage, AIMessage
-from dotenv import load_dotenv, find_dotenv
 
-# Load environment variables
-dotenv_path = find_dotenv()
-load_dotenv(dotenv_path)
-
-# Ensure API key is set
-if "OPENAI_API_KEY" not in os.environ:
-    st.error("Error: OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
+# Ensure API key is set in secrets
+if "openai" not in st.secrets or "api_key" not in st.secrets["openai"]:
+    st.error("Error: OpenAI API key not found in secrets. Please add it to .streamlit/secrets.toml")
     st.stop()
+
+# Set OpenAI API key from secrets
+os.environ["OPENAI_API_KEY"] = st.secrets["openai"]["api_key"]
 
 # Initialize session state for chat history
 if "messages" not in st.session_state:
